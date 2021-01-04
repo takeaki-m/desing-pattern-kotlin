@@ -5,6 +5,11 @@ import factorymethod.IdCard
 import factorymethod.IdCardFactory
 import iterator.Book
 import iterator.BookShelf
+import prototype.JavaProduct
+import prototype.Manager
+import prototype.MessageBox
+import prototype.UnderLinPen
+import singleton.Singleton
 import templatemethod.AbstractDisplay
 import templatemethod.CharDisplay
 import templatemethod.StringDisplay
@@ -77,4 +82,36 @@ fun main() {
     card3.use()
     println("------------------------------------")
 
-}
+    // singleton
+    // 指定したクラスのインスタンスがプログラム中で一つしか存在しないことを保証する
+    // インスタンスの生成方法をスーパークラス側で定める
+    println("singleton")
+    println("------------------------------------")
+    println("Singleton called")
+    var singleton1: Singleton
+    var singleton2: Singleton
+    println(Singleton.created)
+    println(Singleton.time())
+
+    println("------------------------------------")
+    // prototype
+    // インスタンスから別のインスタンスを生成する
+    //
+    println("prototype")
+    println("------------------------------------")
+    val man: Manager = Manager()
+    val upen: UnderLinPen = UnderLinPen('~')
+    val mbox: MessageBox = MessageBox('*')
+    val sbox: MessageBox = MessageBox('/')
+    man.register("strong message", upen)
+    man.register("warning box", mbox)
+    man.register("slash box", sbox)
+    val p1: JavaProduct = man.create("strong message")
+    p1.use("Hello World!")
+    val p2: JavaProduct = man.create("warning box")
+    p2.use("Hello World!")
+    val p3: JavaProduct = man.create("slash box")
+    p3.use("Hello World!")
+
+
+    println("------------------------------------")}
