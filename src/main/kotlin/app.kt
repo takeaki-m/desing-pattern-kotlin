@@ -1,18 +1,21 @@
 import adaptor.*
+import builder.Director
+import builder.HTMLBuilder
+import builder.TextBuilder
 import factorymethod.AbstractFactory
 import factorymethod.AbstractProduct
-import factorymethod.IdCard
 import factorymethod.IdCardFactory
 import iterator.Book
 import iterator.BookShelf
-import prototype.JavaProduct
-import prototype.Manager
-import prototype.MessageBox
-import prototype.UnderLinPen
+import org.w3c.dom.Text
+import prototype.KotlinManager
+import prototype.KotlinProduct
+import prototype.UnderlinePen
 import singleton.Singleton
 import templatemethod.AbstractDisplay
 import templatemethod.CharDisplay
 import templatemethod.StringDisplay
+import java.time.LocalDate
 
 fun main() {
     println("Hello World")
@@ -97,21 +100,40 @@ fun main() {
     // prototype
     // インスタンスから別のインスタンスを生成する
     //
-    println("prototype")
+    // println("prototype_java")
+    // println("------------------------------------")
+    // val man: KotlinManager = KotlinManager()
+    // val upen: UnderlinePen = UnderlinePen('~')
+    // val mbox: prototype.MessageBox = prototype.MessageBox('*')
+    // val sbox: prototype.MessageBox = prototype.MessageBox('/')
+    // man.register("strong message", upen)
+    // man.register("warning box", mbox)
+    // man.register("slash box", sbox)
+    // val p1: KotlinProduct = man.create("strong message")
+    // p1.use("Hello World!")
+    // val p2: KotlinProduct = man.create("warning box")
+    // p2.use("Hello World!")
+    // val p3: KotlinProduct = man.create("slash box")
+    // p3.use("Hello World!")
+    // println("------------------------------------")
+
+    // builder
+    // 構造を持ったインスタンスを組み上げていく
+    // 呼び出しているDirectorは、実際に動いている具体的なクラスを意識していない
+    println("builder")
     println("------------------------------------")
-    val man: Manager = Manager()
-    val upen: UnderLinPen = UnderLinPen('~')
-    val mbox: MessageBox = MessageBox('*')
-    val sbox: MessageBox = MessageBox('/')
-    man.register("strong message", upen)
-    man.register("warning box", mbox)
-    man.register("slash box", sbox)
-    val p1: JavaProduct = man.create("strong message")
-    p1.use("Hello World!")
-    val p2: JavaProduct = man.create("warning box")
-    p2.use("Hello World!")
-    val p3: JavaProduct = man.create("slash box")
-    p3.use("Hello World!")
+    val date: LocalDate = LocalDate.now()
+    if (date.monthValue % 2 == 0) {
+        val textBuilder = TextBuilder()
+        val director = Director(textBuilder)
+        director.construct()
+        println(textBuilder.getResult())
 
-
-    println("------------------------------------")}
+    } else {
+        val htmlBuilder = HTMLBuilder()
+        val director = Director(htmlBuilder)
+        director.construct()
+        println(htmlBuilder.getResult() + "が作成されました")
+    }
+    println("------------------------------------")
+}
