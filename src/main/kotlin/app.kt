@@ -1,14 +1,12 @@
 import adaptor.*
 import factorymethod.AbstractFactory
 import factorymethod.AbstractProduct
-import factorymethod.IdCard
 import factorymethod.IdCardFactory
 import iterator.Book
 import iterator.BookShelf
-import prototype.JavaProduct
-import prototype.Manager
-import prototype.MessageBox
-import prototype.UnderLinPen
+import prototype.KotlinManager
+import prototype.KotlinProduct
+import prototype.UnderlinePen
 import singleton.Singleton
 import templatemethod.AbstractDisplay
 import templatemethod.CharDisplay
@@ -97,20 +95,20 @@ fun main() {
     // prototype
     // インスタンスから別のインスタンスを生成する
     //
-    println("prototype")
+    println("prototype_java")
     println("------------------------------------")
-    val man: Manager = Manager()
-    val upen: UnderLinPen = UnderLinPen('~')
-    val mbox: MessageBox = MessageBox('*')
-    val sbox: MessageBox = MessageBox('/')
+    val man: KotlinManager = KotlinManager()
+    val upen: UnderlinePen = UnderlinePen('~')
+    val mbox: prototype.MessageBox = prototype.MessageBox('*')
+    val sbox: prototype.MessageBox = prototype.MessageBox('/')
     man.register("strong message", upen)
     man.register("warning box", mbox)
     man.register("slash box", sbox)
-    val p1: JavaProduct = man.create("strong message")
+    val p1: KotlinProduct = man.create("strong message")
     p1.use("Hello World!")
-    val p2: JavaProduct = man.create("warning box")
+    val p2: KotlinProduct = man.create("warning box")
     p2.use("Hello World!")
-    val p3: JavaProduct = man.create("slash box")
+    val p3: KotlinProduct = man.create("slash box")
     p3.use("Hello World!")
 
 
